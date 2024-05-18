@@ -4,12 +4,16 @@ import model.Pokemon
 import model.PokemonListResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface PokeApiService {
     @GET("pokemon")
     fun getPokemonList(@Query("limit") limit: Int = 20, @Query("offset") offset: Int = 0): Call<PokemonListResponse>
+
+    @GET("pokemon/{name}")
+    fun getPokemonByName(@Path("name") name: String): Call<Pokemon>
 
     @GET
     fun getPokemonListFromUrl(@Url url: String): Call<PokemonListResponse>

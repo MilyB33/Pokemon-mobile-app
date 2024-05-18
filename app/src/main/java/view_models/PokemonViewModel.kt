@@ -25,6 +25,7 @@ class PokemonViewModel: ViewModel() {
 
     private val service = PokeApiService.create()
 
+
     fun fetchPokemonList(url: String? = null) {
         _loading.value = true
         val call = if (url == null) {
@@ -39,7 +40,7 @@ class PokemonViewModel: ViewModel() {
                     response.body()?.let { listResponse ->
                         _nextUrl.postValue(listResponse.next)
 
-                        val detailedPokemonList = _pokemonList.value?.toMutableList() ?: mutableListOf()
+                        val detailedPokemonList = mutableListOf<Pokemon>()
                         val remainingCount = AtomicInteger(listResponse.results.size)
 
                         listResponse.results.forEach { result ->
@@ -74,6 +75,9 @@ class PokemonViewModel: ViewModel() {
                                 }
                             })
                         }
+                    } ?: run {
+                        _pokemonList.postValue(emptyList())
+                        _loading.postValue(false)
                     }
                 } else {
                     _loading.postValue(false)
@@ -89,6 +93,32 @@ class PokemonViewModel: ViewModel() {
     }
 
 
+    fun searchPokemonByName(name: String) {
+        _nextUrl.value = null
+        _loading.value = true
+        val call = service.getPokemonByName(name)
+
+        call.enqueue(object : Callback<Pokemon> {
+            override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
+                println(response.body())
+                if (response.isSuccessful) {
+                    response.body()?.let { pokemon ->
+                        _pokemonList.postValue(listOf(pokemon))
+                    } ?: run {
+                        _pokemonList.postValue(emptyList())
+                    }
+                } else {
+                    _pokemonList.postValue(emptyList())
+                }
+                _loading.postValue(false)
+            }
+
+            override fun onFailure(call: Call<Pokemon>, t: Throwable) {
+                _pokemonList.postValue(emptyList())
+                _loading.postValue(false)
+            }
+        })
+    }
 
     fun loadMore() {
         _nextUrl.value?.let { url ->
