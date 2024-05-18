@@ -39,7 +39,7 @@ class PokemonViewModel: ViewModel() {
                     response.body()?.let { listResponse ->
                         _nextUrl.postValue(listResponse.next)
 
-                        val detailedPokemonList = mutableListOf<Pokemon>()
+                        val detailedPokemonList = _pokemonList.value?.toMutableList() ?: mutableListOf()
                         val remainingCount = AtomicInteger(listResponse.results.size)
 
                         listResponse.results.forEach { result ->
@@ -87,6 +87,7 @@ class PokemonViewModel: ViewModel() {
             }
         })
     }
+
 
 
     fun loadMore() {

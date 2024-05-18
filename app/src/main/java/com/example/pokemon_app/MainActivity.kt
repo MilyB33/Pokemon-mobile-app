@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import view_models.PokemonViewModel
 
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.pokemonList)
         val progressBar: View = findViewById(R.id.progressBar)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this,2)
         pokemonListAdapter = PokemonListAdapter()
         recyclerView.adapter = pokemonListAdapter
 
@@ -49,9 +49,18 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.loading.observe(this, Observer { isLoading ->
             progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            recyclerView.visibility = if(isLoading) View.GONE else View.VISIBLE
         })
 
         viewModel.fetchPokemonList()
+
+        // Load more when scrolling to the bottom
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    viewModel.loadMore()
+                }
+            }
+        })
     }
 }
