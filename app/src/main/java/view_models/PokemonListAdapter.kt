@@ -1,45 +1,48 @@
-package view_models
-
-import android.util.Log
+// PokemonAdapter.kt
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.pokemon_app.R
 import model.Pokemon
-import coil.load
 
-class PokemonListAdapter(private val pokemonList: List<Pokemon>): RecyclerView.Adapter<PokemonListAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class PokemonListAdapter : ListAdapter<Pokemon, PokemonListAdapter.PokemonViewHolder>(DiffCallback) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_pokemon, parent, false)
+        return PokemonViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
+        val pokemon = getItem(position)
+        holder.bind(pokemon)
+    }
+
+    class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.pokemonName)
-        private val spriteImageView: ImageView = itemView.findViewById(R.id.sprite_image_view)
-
+        private val imageView: ImageView = itemView.findViewById(R.id.sprite_image_view)
 
         fun bind(pokemon: Pokemon) {
-            try {
-                nameTextView.text = pokemon.name
-
-//                if (pokemon.sprites.front_default?.isNotEmpty() == true) {
-//                    spriteImageView.load(pokemon.sprites.front_default)
-//                }
-            } catch (error: Exception) {
-                error.message?.let { Log.e("PokemonListAdapter", it) }
+            nameTextView.text = pokemon.name
+            imageView.load(pokemon.sprites.front_default) {
+                transformations(CircleCropTransformation())
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_pokemon, parent, false)
-        return ViewHolder(view)
-    }
+    companion object DiffCallback : DiffUtil.ItemCallback<Pokemon>() {
+        override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
+            return oldItem.name == newItem.name
+        }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val pokemon = pokemonList[position]
-        holder.bind(pokemon)
+        override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
+            return oldItem == newItem
+        }
     }
-
-    override fun getItemCount() = pokemonList.size
 }

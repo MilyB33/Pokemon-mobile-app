@@ -4,7 +4,7 @@ data class PokemonListResponse(
     val count: Int,
     val next: String?,
     val previous: String?,
-    val results: List<Pokemon>
+    val results: List<PokemonListResult>
 )
 
 data class PokemonListResult(
@@ -17,15 +17,6 @@ data class Pokemon(
     val name: String,
     val url: String,
     val sprites: Sprites
-)
-
-data class AbilityEntry(
-    val ability: Ability
-)
-
-data class Ability(
-    val name: String,
-    val url: String
 )
 
 data class Sprites(

@@ -1,7 +1,9 @@
 package com.example.pokemon_app
 
+import PokemonListAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import view_models.PokemonListAdapter
 import view_models.PokemonViewModel
 
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: PokemonViewModel
+    private lateinit var pokemonListAdapter: PokemonListAdapter
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,14 +34,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         recyclerView = findViewById(R.id.pokemonList)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val progressBar: View = findViewById(R.id.progressBar)
 
-        viewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        pokemonListAdapter = PokemonListAdapter()
+        recyclerView.adapter = pokemonListAdapter
+
+
+        viewModel = ViewModelProvider(this)[PokemonViewModel::class.java]
 
         viewModel.pokemonList.observe(this, Observer { pokemonList ->
-            recyclerView.adapter = PokemonListAdapter(pokemonList)
+             pokemonListAdapter.submitList(pokemonList)
         })
 
-        viewModel.fetchPokemonData()
+        viewModel.loading.observe(this, Observer { isLoading ->
+            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            recyclerView.visibility = if(isLoading) View.GONE else View.VISIBLE
+        })
+
+        viewModel.fetchPokemonList()
     }
 }

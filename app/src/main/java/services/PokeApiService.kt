@@ -12,6 +12,9 @@ interface PokeApiService {
     fun getPokemonList(@Query("limit") limit: Int = 20, @Query("offset") offset: Int = 0): Call<PokemonListResponse>
 
     @GET
+    fun getPokemonListFromUrl(@Url url: String): Call<PokemonListResponse>
+
+    @GET
     fun getPokemonDetails(@Url url: String): Call<Pokemon>
 
     companion object {
