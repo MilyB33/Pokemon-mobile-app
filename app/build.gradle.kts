@@ -35,6 +35,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -45,4 +46,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // define a BOM and its version
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
+
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.x.x")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.x.x")
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
