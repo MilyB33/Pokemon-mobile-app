@@ -1,4 +1,6 @@
 package model
+import android.os.Parcel
+import android.os.Parcelable
 
 data class PokemonListResponse(
     val count: Int,
@@ -24,6 +26,7 @@ data class Pokemon(
     val types: List<TypeWrapper>,
     val weight: Number
 )
+
 
 data class Sprites(
     val front_default: String?,

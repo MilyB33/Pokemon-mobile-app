@@ -2,4 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yellow">#FFDA78</color>
+    <color name="blue">#2A629A</color>
+
+    <color name="stat_hp">#FFFF80</color>
+    <color name="stat_attack">#EE4E4E</color>
+    <color name="stat_defense">#4793AF</color>
+    <color name="stat_special_attack">#AD88C6</color>
+    <color name="stat_special_defense">#E178C5</color>
+    <color name="stat_speed">#A1DD70</color>
+
 </resources>

@@ -1,6 +1,9 @@
 package utils
 
+import android.content.Context
 import android.graphics.Color
+import androidx.core.content.ContextCompat
+import com.example.pokemon_app.R
 
 object PokemonTypeColors {
     private val typeColors = mapOf(
@@ -26,5 +29,17 @@ object PokemonTypeColors {
 
     fun getColorForType(type: String): Int {
         return typeColors[type] ?: Color.GRAY
+    }
+}
+
+fun getColorForStat(statName: String, context: Context): Int {
+    return when (statName) {
+        "hp" -> ContextCompat.getColor(context, R.color.stat_hp)
+        "attack" -> ContextCompat.getColor(context, R.color.stat_attack)
+        "defense" -> ContextCompat.getColor(context, R.color.stat_defense)
+        "special-attack" -> ContextCompat.getColor(context, R.color.stat_special_attack)
+        "special-defense" -> ContextCompat.getColor(context, R.color.stat_special_defense)
+        "speed" -> ContextCompat.getColor(context, R.color.stat_speed)
+        else -> Color.GRAY
     }
 }

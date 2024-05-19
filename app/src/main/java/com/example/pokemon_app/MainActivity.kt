@@ -1,7 +1,8 @@
 package com.example.pokemon_app
 
-import PokemonListAdapter
+import view_models.PokemonListAdapter
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,7 +10,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.Gson
+import model.Pokemon
 import view_models.PokemonViewModel
 
 
@@ -53,11 +55,29 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.pokemonList)
         val progressBar: View = findViewById(R.id.progressBar)
 
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-        pokemonListAdapter = PokemonListAdapter()
-        recyclerView.adapter = pokemonListAdapter
-
         viewModel = ViewModelProvider(this)[PokemonViewModel::class.java]
+
+
+
+        val layoutManager = GridLayoutManager(this,2)
+
+        recyclerView.layoutManager = layoutManager
+
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                // Span Load more button on two columns
+                return if (pokemonListAdapter.getItemViewType(position) == 1) {
+                    2
+                } else {
+                    1
+                }
+            }
+        }
+
+
+        pokemonListAdapter = PokemonListAdapter({ viewModel.loadMorePokemon() }, { redirectToPokemonDetails(it) }, viewModel.loading)
+
+        recyclerView.adapter = pokemonListAdapter
 
         viewModel.pokemonList.observe(this, Observer { pokemonList ->
             pokemonListAdapter.submitList(pokemonList)
@@ -67,21 +87,7 @@ class MainActivity : AppCompatActivity() {
             progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         })
 
-        viewModel.fetchPokemonList()
-
-        // Load more when scrolling to the bottom
-        viewModel.loading.observe(this, Observer { isLoading ->
-            if (isLoading == false) {
-                recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        if (!recyclerView.canScrollVertically(1)) {
-                            viewModel.loadMore()
-                        }
-                    }
-                })
-            }
-        })
+        viewModel.fetchInitialPokemonList()
     }
 
     private fun setupEditText() {
@@ -106,9 +112,19 @@ class MainActivity : AppCompatActivity() {
             if (query.isNotEmpty()) {
                 viewModel.searchPokemonByName(query)
             } else {
-                viewModel.fetchPokemonList()
+                viewModel.fetchInitialPokemonList()
             }
         }
         handler.postDelayed(runnable!!, 500)
+    }
+
+    private fun redirectToPokemonDetails(pokemon: Pokemon) {
+        val pokemonJson = Gson().toJson(pokemon)
+
+        val intent = Intent(this, PokemonDetailsActivity::class.java).apply {
+            putExtra("pokemon", pokemonJson)
+        }
+
+        startActivity(intent)
     }
 }

@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/loadMoreButton"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="0dp"
+    android:layout_marginStart="0dp">
+
+    <ProgressBar
+        android:id="@+id/load_more_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Load More"
-        android:padding="16dp"
-        android:background="@android:color/white"
-        android:textStyle="bold"
-        android:gravity="center"/>
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/load_more_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:background="@drawable/yellow_button_with_blue_border"
+        android:elevation="8dp"
+        android:text="Load more" />
 </RelativeLayout>

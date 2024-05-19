@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PokemonDetailsActivity">
+
+    <Button
+        android:id="@+id/backToListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/arrow_back"
+        android:text="Back to list"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:icon="@drawable/arrow_back"
+        app:iconTint="@color/blue" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pokemonDetailsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backToListButton"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="64dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="8dp"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:cardCornerRadius="25dp">
+
+            <ImageView
+                android:id="@+id/sprite_image_view_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="250dp"
+                android:minHeight="250dp" />
+
+            <TextView
+                android:id="@+id/pokemonNameDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pokemon Name"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/typesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/stats_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
