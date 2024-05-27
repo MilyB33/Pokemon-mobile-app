@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -18,13 +19,20 @@ import androidx.core.view.WindowInsetsCompat
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.gson.Gson
+import database.FavouritesResults
 import model.Pokemon
 import model.StatWrapper
 import model.TypeWrapper
+import services.AuthService
+import services.FavouritesService
 import utils.PokemonTypeColors
 import utils.getColorForStat
 
 class PokemonDetailsActivity : AppCompatActivity() {
+
+    private lateinit var favouritesService: FavouritesService
+    private lateinit var authService: AuthService
+    private lateinit var _pokemon: Pokemon
 
 
     @SuppressLint("SetTextI18n")
@@ -38,8 +46,13 @@ class PokemonDetailsActivity : AppCompatActivity() {
             insets
         }
 
+        authService = AuthService(this)
+        favouritesService = FavouritesService(this)
+
         val pokemonJson = intent.getStringExtra("pokemon")
         val pokemon = Gson().fromJson(pokemonJson, Pokemon::class.java)
+
+        _pokemon = pokemon
 
         val pokemonName: TextView = findViewById(R.id.pokemonNameDetails)
         val pokemonImage: ImageView = findViewById(R.id.sprite_image_view_details)
@@ -56,6 +69,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
 
         displayPokemonTypes(pokemon.types)
         displayPokemonStats(pokemon.stats)
+        setSaveButtonText()
     }
 
     private fun displayPokemonTypes(types: List<TypeWrapper>) {
@@ -105,7 +119,28 @@ class PokemonDetailsActivity : AppCompatActivity() {
                 ?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
 
             statsContainer.addView(statView)
+        }
+    }
 
+
+    fun togglePokemonSave(www: View) {
+        if (!authService.isLoggedIn()) {
+            return
+        }
+
+        favouritesService.toggleFavourite(FavouritesResults(_pokemon.id.toInt(), _pokemon.name))
+
+        setSaveButtonText()
+    }
+    @SuppressLint("SetTextI18n")
+    fun setSaveButtonText() {
+        val isFavourite = favouritesService.isFavouritePokemon(_pokemon.id.toInt())
+        val saveButton: Button = findViewById(R.id.savePokemonAsFavourite)
+
+        if (isFavourite) {
+            saveButton.text = "Unsave"
+        } else {
+            saveButton.text = "Save"
         }
     }
 }

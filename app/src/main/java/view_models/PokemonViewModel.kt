@@ -15,7 +15,10 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class PokemonViewModel : ViewModel() {
     private val _pokemonList = MutableLiveData<List<PokemonListItem>>()
+    private val _favouritePokemonList = MutableLiveData<List<PokemonListItem>>()
+
     val pokemonList: LiveData<List<PokemonListItem>> get() = _pokemonList
+    val favouritePokemonList: LiveData<List<PokemonListItem>> get() = _favouritePokemonList
 
     private val _nextUrl = MutableLiveData<String?>()
 
@@ -146,6 +149,44 @@ class PokemonViewModel : ViewModel() {
                 _loading.postValue(false)
             }
         })
+    }
+
+    fun fetchFavoritePokemonList(ids: List<Int>) {
+        if (ids.isEmpty()) {
+            _loading.value = false
+            _favouritePokemonList.value = emptyList()
+            return
+        }
+
+        _loading.value = true
+        val callList = ids.map { service.getPokemonByName(it.toString()) }
+        val fetchedFavoritePokemonList = mutableListOf<Pokemon>()
+
+        callList.forEach { call ->
+            call.enqueue(object : Callback<Pokemon> {
+                override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
+                    if (response.isSuccessful) {
+                        response.body()?.let { pokemon ->
+                            fetchedFavoritePokemonList.add(pokemon)
+                        }
+                    }
+                    checkIfAllFavoritePokemonFetched(ids.size, fetchedFavoritePokemonList)
+                }
+
+                override fun onFailure(call: Call<Pokemon>, t: Throwable) {
+                    checkIfAllFavoritePokemonFetched(ids.size, fetchedFavoritePokemonList)
+                }
+            })
+        }
+    }
+
+
+    private fun checkIfAllFavoritePokemonFetched(expectedCount: Int, fetchedFavoritePokemonList: List<Pokemon>) {
+        if (fetchedFavoritePokemonList.size == expectedCount) {
+            val listItems: MutableList<PokemonListItem> = fetchedFavoritePokemonList.map { PokemonListItem.PokemonItem(it) }.toMutableList()
+            _favouritePokemonList.postValue(listItems)
+            _loading.postValue(false)
+        }
     }
 }
 

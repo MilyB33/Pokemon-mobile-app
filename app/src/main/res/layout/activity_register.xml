@@ -1,51 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c0fdff"
+    android:orientation="vertical"
     tools:context=".Register">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="0px"
+        android:layout_marginStart="0px"
+        android:layout_marginLeft="0px"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="0px"
+        android:layout_marginRight="0px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bulbasaur" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Pokemon App"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="24dp"
+        android:layout_gravity="center|center_vertical"
+        android:orientation="vertical"
+        android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
+        <TextView
+            android:id="@+id/registerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24px"
+            android:text="Create an account!"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
-            android:id="@+id/UsernameField"
+            android:id="@+id/usernameFieldRegister"
             style="@style/Widget.AppCompat.EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="32dp"
+            android:layout_gravity="center"
             android:ems="10"
             android:hint="Username"
             android:inputType="text"
@@ -56,9 +62,10 @@
             app:layout_constraintTop_toBottomOf="@+id/registerTextView" />
 
         <EditText
-            android:id="@+id/PasswordField"
-            android:layout_width="0dp"
+            android:id="@+id/passwordFieldRegister"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
@@ -66,14 +73,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+            tools:layout_editor_absoluteY="153dp" />
 
         <Button
-            android:id="@+id/LoginButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/createAccountButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:backgroundTint="#FF9800"
+            android:onClick="createAccount"
             android:text="Create account"
             app:cornerRadius="16px"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,23 +89,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CreateAccountButton" />
 
-        <TextView
-            android:id="@+id/registerTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Create an account!"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
-            android:id="@+id/CreateAccountButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/toLogInButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@android:color/transparent"
+            android:onClick="navigateToLogin"
             android:padding="8dp"
             android:text="Already have account?"
             android:textAlignment="viewEnd"
@@ -108,17 +107,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:height="48dp"
-            android:ems="10"
-            android:hint="E-mail"
-            android:inputType="text"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/UsernameField" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>

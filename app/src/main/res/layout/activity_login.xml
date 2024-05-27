@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="#c0fdff"
     tools:context=".Login">
@@ -12,40 +13,45 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="0px"
+        android:layout_marginStart="0px"
+        android:layout_marginLeft="0px"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="0px"
+        android:layout_marginRight="0px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bulbasaur" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Pokemon App"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="24dp"
+        android:layout_gravity="center|center_vertical"
+        android:orientation="vertical"
+        android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/loginTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24px"
+            android:text="Log in!"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/UsernameField"
+            android:id="@+id/usernameFieldLogin"
             style="@style/Widget.AppCompat.EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="32dp"
+            android:layout_gravity="center"
             android:ems="10"
             android:hint="Username"
             android:inputType="text"
@@ -53,51 +59,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/loginTextView" />
 
         <EditText
-            android:id="@+id/PasswordField"
-            android:layout_width="0dp"
+            android:id="@+id/passwordFieldLogin"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/UsernameField" />
+            tools:layout_editor_absoluteY="153dp" />
 
         <Button
-            android:id="@+id/LoginButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/LogInButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="#c0fdff"
             android:backgroundTint="#FF9800"
-            android:text="Login"
+            android:onClick="login"
+            android:text="Log in"
             app:cornerRadius="16px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CreateAccountButton" />
 
-        <TextView
-            android:id="@+id/registerTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Welcome!"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
-            android:id="@+id/CreateAccountButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/ToRegisterButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@android:color/transparent"
+            android:onClick="navigateToRegister"
             android:padding="8dp"
             android:text="Don't have an account?"
             android:textAlignment="viewEnd"
@@ -107,5 +106,6 @@
             app:layout_constraintHorizontal_bias="0.969"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</LinearLayout>

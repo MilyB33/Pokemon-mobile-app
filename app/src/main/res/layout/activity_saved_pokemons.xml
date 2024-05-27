@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SavedPokemonsActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/backToListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/arrow_back"
+        android:text="Back to main view"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:icon="@drawable/arrow_back"
+        app:iconTint="@color/blue" />
+
+    <TextView
+        android:id="@+id/textViewSaved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:shadowColor="#5AB2FF"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="15"
+        android:text="Saved Pokemons"
+        android:textAlignment="center"
+        android:textColor="#FFDB5C"
+        android:textSize="60sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save_as_csv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:onClick="saveAsCSV"
+            android:text="Save as CSV" />
+
+        <Button
+            android:id="@+id/import_as_csv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="importAsCSV"
+            android:text="Import as CSV" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save_as_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="saveAsTxt"
+            android:layout_marginRight="8dp"
+            android:text="Save as TXT" />
+
+        <Button
+            android:id="@+id/import_as_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="importAsTxt"
+            android:text="Import as TXT" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pokemonSavedList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginTop="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

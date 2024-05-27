@@ -42,6 +42,15 @@
             android:orientation="vertical"
             app:cardCornerRadius="25dp">
 
+            <Button
+                android:id="@+id/savePokemonAsFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="16dp"
+                android:onClick="togglePokemonSave"
+                android:text="Save" />
+
             <ImageView
                 android:id="@+id/sprite_image_view_details"
                 android:layout_width="match_parent"
@@ -75,6 +84,7 @@
                 android:paddingTop="16dp"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

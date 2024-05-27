@@ -8,8 +8,11 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MenuInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
 import model.Pokemon
+import services.AuthService
 import view_models.PokemonViewModel
 
 
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private var runnable: Runnable? = null
     private lateinit var handler: Handler
+    private lateinit var authService: AuthService
 
 
     @SuppressLint("MissingInflatedId")
@@ -46,9 +51,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         handler = Handler(Looper.getMainLooper())
+        authService = AuthService(this);
 
        setupRecyclerViewAndViewModel()
         setupEditText()
+        setupPopupMenu()
     }
 
     private fun setupRecyclerViewAndViewModel() {
@@ -126,5 +133,49 @@ class MainActivity : AppCompatActivity() {
         }
 
         startActivity(intent)
+    }
+
+    private fun setupPopupMenu() {
+        findViewById<ImageButton>(R.id.popup_menu_button).setOnClickListener {
+            if (!authService.isLoggedIn()) {
+                val intent = Intent(this, Login::class.java);
+                startActivity(intent);
+            } else {
+                val popup = PopupMenu(this, it)
+                val inflater: MenuInflater = popup.menuInflater
+                inflater.inflate(R.menu.bottom_nav_menu, popup.menu)
+                popup.setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.navigation_home -> {
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            true
+                        }
+
+                        R.id.navigation_account -> {
+                            val intent = Intent(this, AccountActivity::class.java)
+                            startActivity(intent)
+                            true
+                        }
+
+                        R.id.navigation_saved -> {
+                            val intent = Intent(this, SavedPokemonsActivity::class.java)
+                            startActivity(intent)
+                            true
+                        }
+
+                        R.id.log_out -> {
+                            authService.logoutUser()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+                popup.show()
+            }
+        }
     }
 }

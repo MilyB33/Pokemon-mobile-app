@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Pokemonapp"
         tools:targetApi="31">
         <activity
+            android:name=".AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SavedPokemonsActivity"
+            android:exported="false" />
+        <activity
             android:name=".PokemonDetailsActivity"
             android:exported="false" />
         <activity

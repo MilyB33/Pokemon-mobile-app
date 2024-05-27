@@ -15,8 +15,8 @@ object ApiClient {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
             return OkHttpClient.Builder()
-                .addInterceptor(RequestLogger())
-                .addInterceptor(logging)
+//                .addInterceptor(RequestLogger())
+//                .addInterceptor(logging)
                 .build()
 
         }
