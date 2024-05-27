@@ -57,8 +57,14 @@ class Register : AppCompatActivity() {
         finish()
     }
 
-    public fun navigateToLogin(www: View) {
+    fun navigateToLogin(www: View) {
         val intent = Intent(this, Login::class.java);
+        startActivity(intent)
+        finish()
+    }
+
+    fun goBack(www: View) {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

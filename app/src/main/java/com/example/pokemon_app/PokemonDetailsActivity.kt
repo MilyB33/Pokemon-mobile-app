@@ -1,6 +1,7 @@
 package com.example.pokemon_app
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
@@ -137,10 +138,18 @@ class PokemonDetailsActivity : AppCompatActivity() {
         val isFavourite = favouritesService.isFavouritePokemon(_pokemon.id.toInt())
         val saveButton: Button = findViewById(R.id.savePokemonAsFavourite)
 
-        if (isFavourite) {
-            saveButton.text = "Unsave"
+        if (!authService.isLoggedIn()) {
+            saveButton.isEnabled = false
         } else {
-            saveButton.text = "Save"
+            saveButton.isEnabled = true
+        }
+
+        if (isFavourite) {
+            saveButton.text = "-"
+            saveButton.setBackgroundColor(Color.parseColor("#e5383b"))
+        } else {
+            saveButton.text = "+"
+            saveButton.setBackgroundColor(Color.parseColor("#669bbc"))
         }
     }
 }

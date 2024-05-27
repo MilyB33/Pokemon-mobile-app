@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="15dp"
-    android:orientation="vertical"
     tools:context=".AccountActivity">
 
     <Button
@@ -31,7 +30,9 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_below="@id/backToListButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
         android:shadowColor="#5AB2FF"
         android:shadowDx="4"
         android:shadowDy="4"
@@ -43,8 +44,10 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView2"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -70,8 +73,9 @@
         android:id="@+id/delete_account_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#d90429"
         android:onClick="deleteAccount"
         android:text="Delete account" />
 
-</LinearLayout>
+</RelativeLayout>
