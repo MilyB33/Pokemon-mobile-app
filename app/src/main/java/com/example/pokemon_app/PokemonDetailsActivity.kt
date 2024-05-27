@@ -20,7 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.gson.Gson
-import database.FavouritesResults
+import model.FavouritesResults
 import model.Pokemon
 import model.StatWrapper
 import model.TypeWrapper
@@ -61,11 +61,6 @@ class PokemonDetailsActivity : AppCompatActivity() {
         pokemonName.text = "#" + pokemon.id + " " + pokemon.name.replaceFirstChar { it.uppercase() }
         pokemonImage.load(pokemon.sprites.front_default) {
             transformations(CircleCropTransformation())
-        }
-
-        val backToListButton = findViewById<Button>(R.id.backToListButton)
-        backToListButton.setOnClickListener {
-            finish()
         }
 
         displayPokemonTypes(pokemon.types)
@@ -151,5 +146,9 @@ class PokemonDetailsActivity : AppCompatActivity() {
             saveButton.text = "+"
             saveButton.setBackgroundColor(Color.parseColor("#669bbc"))
         }
+    }
+
+    fun goBack(www: View) {
+        finish()
     }
 }

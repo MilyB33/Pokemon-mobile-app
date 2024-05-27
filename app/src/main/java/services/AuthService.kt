@@ -3,7 +3,7 @@ package services
 import android.content.Context
 import android.content.SharedPreferences
 import database.DatabaseHelper
-import database.User
+import model.User
 
 class AuthService(context: Context) {
 

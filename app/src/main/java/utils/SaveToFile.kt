@@ -1,9 +1,8 @@
 package utils
 
 import android.content.Context
-import database.FavouritesResults
+import model.FavouritesResults
 import java.io.BufferedReader
-import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException

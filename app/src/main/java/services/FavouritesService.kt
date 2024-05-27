@@ -2,7 +2,7 @@ package services
 
 import android.content.Context
 import database.DatabaseHelper
-import database.FavouritesResults
+import model.FavouritesResults
 
 class FavouritesService(context: Context) {
 

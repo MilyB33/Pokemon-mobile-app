@@ -4,10 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-
-data class User(val id: Int, val username: String, val password: String)
-
-data class FavouritesResults(val pokemonId: Int, val pokemonName: String)
+import model.FavouritesResults
+import model.User
 
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 

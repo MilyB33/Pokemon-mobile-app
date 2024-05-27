@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import database.FavouritesResults
+import model.FavouritesResults
 import model.Pokemon
 import services.AuthService
 import services.FavouritesService
