@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
+import database.DatabaseHelper
 import model.Pokemon
 import services.AuthService
 import view_models.PokemonViewModel
@@ -49,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        DatabaseHelper.initializeDatabase(this)
 
         handler = Handler(Looper.getMainLooper())
         authService = AuthService(this);

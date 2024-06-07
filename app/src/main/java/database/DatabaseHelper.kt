@@ -23,6 +23,18 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         private const val COLUMN_POKEMON_ID = "pokemon_id"
         private const val COLUMN_POKEMON_NAME = "pokemon_name"
 
+        fun doesDatabaseExist(context: Context): Boolean {
+            val dbFile = context.getDatabasePath(DATABASE_NAME)
+            return dbFile.exists()
+        }
+
+        fun initializeDatabase(context: Context) {
+            if (!doesDatabaseExist(context)) {
+                val dbHelper = DatabaseHelper(context)
+                val db = dbHelper.writableDatabase
+                db.close()
+            }
+        }
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -40,6 +52,15 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
 
         db.execSQL(createUsersTable)
         db.execSQL(createFavoritesTable)
+
+        addSampleUser(db, "sampleuser", "password123")
+    }
+
+    private fun addSampleUser(db: SQLiteDatabase, username: String, password: String) {
+        val values = ContentValues()
+        values.put(COLUMN_USERNAME, username)
+        values.put(COLUMN_PASSWORD, password)
+        db.insert(TABLE_USERS, null, values)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
