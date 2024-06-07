@@ -6,6 +6,7 @@ Pokedex Lite is a simple mobile application for Android that allows users to bro
 
 - [Features](#features)
 - [Installation](#installation)
+- [Database Initialization](#database-initialization)
 - [Usage](#usage)
 - [API Usage](#api-usage)
 - [Database](#database)
@@ -34,6 +35,14 @@ Pokedex Lite is a simple mobile application for Android that allows users to bro
 3. Ensure that you have the required dependencies installed as specified in the `build.gradle` file.
 
 4. Run the application on an emulator or physical device.
+
+## Database Initialization
+
+The app automatically creates the SQLite database upon startup if it doesn't already exist. During the database creation, a sample user is also inserted into the database for testing purposes.
+
+Sample User
+- Username: sampleUser
+- Password: password123
 
 ## Usage
 
